@@ -20,5 +20,5 @@ func main() {
 		os.Exit(2)
 	}
 	key := pbkdf2.Key([]byte(*password), []byte(*nwid), 4096, 32, sha1.New)
-	fmt.Printf("0x%x\n", key)
+	fmt.Printf("%#x\n", key)
 }
