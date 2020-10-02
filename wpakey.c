@@ -52,7 +52,7 @@ usage(void)
 static void
 print_key(const u_int8_t *key, size_t len)
 {
-	int i;
+	unsigned int i;
 
 	printf("0x");
 	for (i = 0; i < len; i++)
