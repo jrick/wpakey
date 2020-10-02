@@ -6,7 +6,7 @@
 #include <util.h>
 
 __dead static void	usage(void);
-static void		print_key(u_int8_t *, size_t);
+static void		print_key(const u_int8_t *, size_t);
 
 int
 main(int argc, char *argv[])
@@ -50,7 +50,7 @@ usage(void)
 }
 
 static void
-print_key(u_int8_t *key, size_t len)
+print_key(const u_int8_t *key, size_t len)
 {
 	u_int8_t hex[2];
 	int i;
