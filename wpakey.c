@@ -12,8 +12,8 @@ int
 main(int argc, char *argv[])
 {
 	u_int8_t key[32];
-	const char *nwid, *password;
-	size_t nwid_len, password_len;
+	const char *nwid, *pass;
+	size_t nwidlen, passlen;
 
 	if (unveil("/", "") == -1)
 		err(1, "unveil");
@@ -24,28 +24,28 @@ main(int argc, char *argv[])
 		usage();
 
 	nwid = argv[1];
-	nwid_len = strlen(nwid);
-	password = argv[2];
-	password_len = strlen(password);
+	nwidlen = strlen(nwid);
+	pass = argv[2];
+	passlen = strlen(pass);
 
-	if (password_len < 8 || password_len > 63)
-		errx(1, "password must be 8-63 bytes long");
-	if (nwid_len > 32)
-		errx(1, "nwid length must not exceed 32 bytes long");
+	if (nwidlen > 32)
+		errx(1, "nwid length must not exceed 32 bytes");
+	if (passlen < 8 || passlen > 63)
+		errx(1, "passphrase must be between 8 and 63 bytes");
 
-	if (pkcs5_pbkdf2(password, password_len, nwid, nwid_len,
-	    key, sizeof(key), 4096) == -1)
+	if (pkcs5_pbkdf2(pass, passlen, nwid, nwidlen, key, sizeof(key),
+	    4096) == -1)
 		err(1, "pkcs5_pbkdf2");
 
 	print_key(key, sizeof(key));
 
-	return (0);
+	return 0;
 }
 
 __dead static void
 usage(void)
 {
-	fprintf(stderr, "usage: %s nwid password\n", getprogname());
+	fprintf(stderr, "usage: %s nwid passphrase\n", getprogname());
 	exit(2);
 }
 
